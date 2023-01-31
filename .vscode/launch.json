@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch hw1",
+            "request": "launch",
+            "mainClass": "hw1",
+            "projectName": "HW1_93b9d65e"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

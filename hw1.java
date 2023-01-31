@@ -2,36 +2,52 @@ import java.io.*;
 import java.util.*;
 
 public class hw1{
-    ArrayList<Word> path = new ArrayList<Word>();
+    public static void main(String[] args){
+        String file = args[0];
+        String start = args[1];
+        String target = args[2];
+        ArrayList<Word> wordList = new ArrayList<Word>();
 
-    public void dfs(Word start, Word target, String file){
-        Stack<Word> stack = new Stack<Word>();
-        stack.push(start);
-        while(!stack.isEmpty()){
-            Word current = stack.pop();
-            if(!current.visited){
-                if(current.word.equals(target.word))
-                    this.path.add(0,current);
-                else{
-                    current.visited = true;
-                    for(int i = 0; i < current.nbs.size(); i++){
-                        Word next = new Word(file,current.nbs.get(i));
-                        dfs(next, target, file);
-                    }
+        Word startWord = null;
+        Word targetWord = null;
+
+        try {
+            File f = new File(file);
+            Scanner myReader = new Scanner(f);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                Word newWord = new Word(data);
+                wordList.add(newWord);
+                if (data.equals(start)){
+                    startWord = newWord;
+                } else if (data.equals(target)){
+                    targetWord = newWord;
                 }
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
+
+        for(int i = 0; i < wordList.size(); i++){
+            wordList.get(i).fillNBS(wordList);
+            if (wordList.get(i).word.equals(start)){
+                startWord = wordList.get(i);
+            } else if (wordList.get(i).word.equals(target)){
+                targetWord = wordList.get(i);
             }
         }
 
-    }
-    public static void main(String[] args){
-        String file = args[0];
-        Word start = new Word(file, args[1]);
-        Word target = new Word(file, args[2]);
+        findPath findPath = new findPath(startWord, targetWord, wordList);
 
-
-        dfs(start, target, file);
-
-        System.out.println(start.nbs);
-        System.out.println(start.nbs.size());
+        if(findPath.distance < 0)
+            System.out.println("No solution");
+        else{
+            ArrayList<Word> path = findPath.path;
+            for(int i = 0; i < path.size(); i++){
+                System.out.println(path.get(i).word);
+            }
+        }
     }
 }

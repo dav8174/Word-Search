@@ -1,15 +1,11 @@
-import java.io.File;
-import java.io.FileNotFoundException; 
-import java.util.Scanner; 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Word{
-    String file;
     String word;
     boolean visited;
-    ArrayList<String> nbs; //neighbors
+    ArrayList<Word> nbs; //neighbors
 
-    public boolean oneOff(String other){
+    public boolean isNeighbor(String other){
         if(this.word.equals(other) || this.word.length() != other.length())
             return false;
         int diff = 0; // different chars
@@ -24,29 +20,18 @@ public class Word{
         return true;
     }
     
-    public ArrayList<String> fillNBS(){
+    public ArrayList<String> fillNBS(ArrayList<Word> wordList){
         ArrayList<String> neighbors = new ArrayList<String>();
-        try {
-            File file = new File(this.file);
-            Scanner myReader = new Scanner(file);
-            while (myReader.hasNextLine()) {
-              String data = myReader.nextLine();
-              if(oneOff(data))
-                neighbors.add(data);
-            }
-            myReader.close();
-          } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-          }
+        for(int i = 0; i < wordList.size(); i++){
+            if(isNeighbor(wordList.get(i).word))
+                nbs.add(wordList.get(i));
+        }
         return neighbors;
     }
 
-    Word(String file, String word){
-        this.file = file;
+    Word(String word){
         this.word = word;
         this.visited = false;
-        this.nbs = this.fillNBS();
+        this.nbs = new ArrayList<Word>();
     }
-
 }
