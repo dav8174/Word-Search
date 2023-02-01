@@ -24,6 +24,7 @@ public class hw1{
                 wordList.add(newWord);
                 if (data.equals(start)){
                     startWord = newWord;
+                    startWord.distFromSrc = 0;
                 } else if (data.equals(target)){
                     targetWord = newWord;
                 }
@@ -36,16 +37,11 @@ public class hw1{
 
         for(int i = 0; i < wordList.size(); i++){
             wordList.get(i).fillNBS(wordList);
-            if (wordList.get(i).word.equals(start)){
-                startWord = wordList.get(i);
-            } else if (wordList.get(i).word.equals(target)){
-                targetWord = wordList.get(i);
-            }
         }
 
         findPath findPath = new findPath(startWord, targetWord, wordList);
 
-        if(findPath.distance < 0)
+        if(targetWord.distFromSrc == -1)
             System.out.println("no solution");
         else{
             ArrayList<Word> path = findPath.path;

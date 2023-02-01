@@ -18,36 +18,32 @@ public class findPath{
     }
 
     public void search(){
-        ArrayList<Word> toVisit = new ArrayList<Word>();
+        Queue<Word> toVisit = new LinkedList<Word>();
         toVisit.add(this.start);
         while(!toVisit.isEmpty()){
-            Word current = pickNext(toVisit);
+            Word current = toVisit.remove();
             current.visited = true;
-            for(int i = 0; i < toVisit.size(); i++){
-                if(current.equals(toVisit.get(i)))
-                    toVisit.remove(i);
-            }
-            if(current.word.equals(this.target.word)){
-                distance = 0;
-                makePath(current);
-                break;              
-            }
-            else{
-                for(int i = 0; i < current.nbs.size(); i++){
-                    if(!current.nbs.get(i).visited){
-                        toVisit.add(current.nbs.get(i));
-                        current.nbs.get(i).predecessor = current;
-                    }
+            for(int i = 0; i < current.nbs.size(); i++){
+                if(!current.nbs.get(i).visited){
+                    toVisit.add(current.nbs.get(i));
+                    current.nbs.get(i).distFromSrc = current.distFromSrc + 1;
                 }
             }
         }
+        if(target.distFromSrc != -1)
+        makePath(target);
     }
 
-    public void makePath(Word lastWord){
-        path.add(0,lastWord);
-        if(lastWord.predecessor != null){
-            this.distance++;
-            makePath(lastWord.predecessor);
+    public void makePath(Word currentWord){
+        path.add(0,currentWord);
+        if(!currentWord.equals(this.start)){
+            Word nextWord = currentWord.nbs.get(0);
+            for(int i = 1; i < currentWord.nbs.size(); i++){
+                if(currentWord.nbs.get(i).distFromSrc < nextWord.distFromSrc){
+                    nextWord = currentWord.nbs.get(i);
+                }
+            }
+            makePath(nextWord);
         }
     }
 
