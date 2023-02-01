@@ -6,8 +6,12 @@ public class hw1{
         String file = args[0];
         String start = args[1];
         String target = args[2];
-        ArrayList<Word> wordList = new ArrayList<Word>();
 
+        if(start.length() != target.length()){
+            System.out.println("no solution");
+        }
+
+        ArrayList<Word> wordList = new ArrayList<Word>();
         Word startWord = null;
         Word targetWord = null;
 
@@ -42,7 +46,7 @@ public class hw1{
         findPath findPath = new findPath(startWord, targetWord, wordList);
 
         if(findPath.distance < 0)
-            System.out.println("No solution");
+            System.out.println("no solution");
         else{
             ArrayList<Word> path = findPath.path;
             for(int i = 0; i < path.size(); i++){

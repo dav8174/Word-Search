@@ -6,7 +6,6 @@ public class findPath{
     ArrayList<Word> wordList;
     int distance;
     ArrayList<Word> path;
-    Word lastWord;
 
     findPath(Word start, Word target, ArrayList<Word> wordList){
         this.start = start;
@@ -14,7 +13,7 @@ public class findPath{
         this.wordList = wordList;
         this.distance = -1;
         this.path = new ArrayList<Word>();
-        this.lastWord = null;
+        
         search();
     }
 
@@ -24,22 +23,32 @@ public class findPath{
         while(!toVisit.isEmpty()){
             Word current = pickNext(toVisit);
             current.visited = true;
-            toVisit.remove(current);
+            for(int i = 0; i < toVisit.size(); i++){
+                if(current.equals(toVisit.get(i)))
+                    toVisit.remove(i);
+            }
             if(current.word.equals(this.target.word)){
-                this.distance = 0;
-                this.lastWord = current;
-                break;
+                distance = 0;
+                makePath(current);
+                break;              
             }
             else{
                 for(int i = 0; i < current.nbs.size(); i++){
-                    if(!current.nbs.get(i).visited)
+                    if(!current.nbs.get(i).visited){
                         toVisit.add(current.nbs.get(i));
+                        current.nbs.get(i).predecessor = current;
+                    }
                 }
             }
-            this.path.add(current);
-            distance++;
         }
-        this.path.add(lastWord);
+    }
+
+    public void makePath(Word lastWord){
+        path.add(0,lastWord);
+        if(lastWord.predecessor != null){
+            this.distance++;
+            makePath(lastWord.predecessor);
+        }
     }
 
     public Word pickNext(ArrayList<Word> list){

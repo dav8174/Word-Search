@@ -4,6 +4,7 @@ public class Word{
     String word;
     boolean visited;
     ArrayList<Word> nbs; //neighbors
+    Word predecessor;
 
     public boolean isNeighbor(String other){
         if(this.word.equals(other) || this.word.length() != other.length())
@@ -33,5 +34,6 @@ public class Word{
         this.word = word;
         this.visited = false;
         this.nbs = new ArrayList<Word>();
+        this.predecessor = null;
     }
 }

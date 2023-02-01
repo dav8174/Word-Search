@@ -4,12 +4,14 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "java",
             "name": "Launch hw1",
             "request": "launch",
             "mainClass": "hw1",
-            "projectName": "HW1_93b9d65e"
+            "projectName": "HW1_93b9d65e",
+            "args": ["words.txt", "fast", "slow"]
         },
         {
             "type": "java",
