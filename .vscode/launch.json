@@ -6,7 +6,43 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch hw1",
+            "name": "harp -> ramp",
+            "request": "launch",
+            "mainClass": "hw1",
+            "projectName": "HW1_86a0fb9e",
+            "args": [
+                "words.txt",
+                "harp",
+                "ramp"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "cold -> warm",
+            "request": "launch",
+            "mainClass": "hw1",
+            "projectName": "HW1_86a0fb9e",
+            "args": [
+                "words.txt",
+                "cold",
+                "warm"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "small -> short",
+            "request": "launch",
+            "mainClass": "hw1",
+            "projectName": "HW1_86a0fb9e",
+            "args": [
+                "words.txt",
+                "small",
+                "short"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "fast -> slow",
             "request": "launch",
             "mainClass": "hw1",
             "projectName": "HW1_86a0fb9e",
@@ -14,6 +50,18 @@
                 "words.txt",
                 "fast",
                 "slow"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "zincs -> abbey",
+            "request": "launch",
+            "mainClass": "hw1",
+            "projectName": "HW1_86a0fb9e",
+            "args": [
+                "words.txt",
+                "zincs",
+                "abbey"
             ]
         },
         {

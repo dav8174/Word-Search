@@ -4,7 +4,6 @@ public class Word{
     String word;
     boolean visited;
     ArrayList<Word> nbs; //neighbors
-    Word predecessor;
     int distFromSrc;
 
     public boolean isNeighbor(String other){
@@ -35,7 +34,6 @@ public class Word{
         this.word = word;
         this.visited = false;
         this.nbs = new ArrayList<Word>();
-        this.predecessor = null;
         this.distFromSrc = -1;
     }
 }
